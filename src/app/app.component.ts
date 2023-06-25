@@ -19,7 +19,6 @@ export class AppComponent {
     private usersService: UsersService
 
   ) {
-    console.log(this.usersService.currentUserProfile$);
   }
 
   logout() {

@@ -1,17 +1,17 @@
 <mat-toolbar color="primary">
   Angular Chat App with Firebase
-  <!-- <ng-container *ngIf="user$ | async as user; else loginButton"> -->
-    <ng-container *ngIf="authService.currentUser$ | async as user; else loginButton">
-    <button mat-button [matMenuTriggerFor]="userMenu">
-      <img
-        width="30"
-        height="30"
-        class="profile-image-toolbar"
-        [src]="user.photoURL ?? '../assets/images/image-placeholder.png'"
-      />
-      {{ user.displayName }}
-      <mat-icon>expand_more</mat-icon>
-    </button>
+  <ng-container *ngIf="user$ | async as user; else loginButton">
+    <div style="display: flex; align-items: center;">
+      <img class="profile-image-toolbar" [src]="user.photoURL ?? '../assets/images/image-placeholder.png'"/>
+      <button class="custom-button" mat-button [matMenuTriggerFor]="userMenu">
+        <span>
+          {{ user.displayName }}
+          <mat-icon >expand_more</mat-icon>
+        </span>
+        
+      </button>
+    </div>
+    
   </ng-container>
 
   <ng-template #loginButton>

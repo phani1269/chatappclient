@@ -16,7 +16,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .form-container mat-form-field {
     width: 100%;
 }
-
+.mat-icon {
+    vertical-align: middle;
+  }
 .center {
     display: flex;
     justify-content: center;
