@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
-import { untilDestroyed } from '@ngneat/until-destroy';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { concatMap } from 'rxjs';
 import { ProfileUser } from 'src/app/_models/user-profile';
 import { AuthenticationService } from 'src/app/_services/auth/authentication.service';
 import { ImageUploadService } from 'src/app/_services/imageUpload/image-upload.service';
 import { UsersService } from 'src/app/_services/user/users.service';
 
+@UntilDestroy()
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -57,7 +58,7 @@ export class ProfileComponent {
   }
 
   saveProfile() {
-    const profileData = this.profileForm.value;
+    const profileData = this.profileForm.value as ProfileUser;
     this.usersService
       .updateUser(profileData)
       .pipe(

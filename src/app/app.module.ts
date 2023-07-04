@@ -17,6 +17,8 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { DatePipe } from '@angular/common';
+import { DateDisplayPipe } from './pipes/date-display.pipe';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { DatePipe } from '@angular/common';
     HomeComponent,
     LoginComponent,
     SignupComponent,
-    ProfileComponent
+    ProfileComponent,
+    DateDisplayPipe,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { DatePipe } from '@angular/common';
     provideStorage(() => getStorage()),
     provideFirestore(() => getFirestore()),
     HotToastModule.forRoot(),
+    HttpClientModule, HttpClientJsonpModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

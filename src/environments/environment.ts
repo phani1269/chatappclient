@@ -11,6 +11,8 @@ export const environment = {
     authDomain: 'angular-chat-application-5351d.firebaseapp.com',
     messagingSenderId: '869942058697',
   },
+
+  API_URL:'http://localhost:4200/',
   
   production: false
 };

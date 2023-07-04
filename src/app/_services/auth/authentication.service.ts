@@ -12,7 +12,8 @@ export class AuthenticationService {
   constructor(private auth: Auth) {}
 
   login(username: string, password: string) {
-    return from(signInWithEmailAndPassword(this.auth, username, password));
+    var user = from(signInWithEmailAndPassword(this.auth, username, password));
+    return user;
   }
 
   signUp(email: string, password: string) {

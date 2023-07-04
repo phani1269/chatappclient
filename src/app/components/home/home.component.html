@@ -1,1 +1,35 @@
-<h1 *ngIf="user$|async as user"> Welcome to chat {{user.displayName}}! </h1>
+<div class="container mat-elevation-z5">
+    <div class="chat-list">
+        <div style="margin: 16px;font-size: 20px;">Chats</div>
+        <mat-divider></mat-divider>
+        <div class="search-input">
+            <mat-form-field style="width: 25vw;">
+                <mat-label>Search for users and start chat</mat-label>
+                <mat-icon matSuffix>search</mat-icon>
+                <input matInput [matAutocomplete]="users" [formControl]="searchControl" />
+            </mat-form-field>
+            <mat-autocomplete #users="matAutocomplete">
+                <mat-option *ngFor="let user of users$ | async" [value]="''" (click)="createChat(user)">
+                    {{ user.displayName }}
+                </mat-option>
+            </mat-autocomplete>
+        </div>
+
+        <mat-selection-list [multiple]="false" [formControl]="chatListControl">
+            <mat-divider></mat-divider>
+            <mat-list-option *ngFor="let chat of myChats$ | async" [value]="chat.id">
+                <img matListItemAvatar [src]="
+                chat.chatPic ? chat.chatPic : '../../../assets/images/image-placeholder.png' " />
+
+                <p mat-line class="chat-title">
+                    <span class="chat-name">{{ chat.chatName }}</span><span class="chat-date">
+                        {{chat.lastMessageDate}}</span>
+                </p>
+
+                <p mat-line>{{ chat.lastMessage }}</p>
+            </mat-list-option>
+
+        </mat-selection-list>
+
+    </div>
+</div>

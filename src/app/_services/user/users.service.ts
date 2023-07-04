@@ -5,11 +5,12 @@ import {
   doc,
   docData,
   Firestore,
+  getDoc,
   query,
   setDoc,
   updateDoc,
 } from '@angular/fire/firestore';
-import { from, Observable, of, switchMap } from 'rxjs';
+import { BehaviorSubject, from, Observable, of, switchMap } from 'rxjs';
 import { ProfileUser } from 'src/app/_models/user-profile';
 import { AuthenticationService } from '../auth/authentication.service';
 
@@ -17,6 +18,12 @@ import { AuthenticationService } from '../auth/authentication.service';
   providedIn: 'root',
 })
 export class UsersService {
+
+
+  private currentUserSubject: BehaviorSubject<ProfileUser>;
+  public currentUser: Observable<ProfileUser>;
+
+
   get currentUserProfile$(): Observable<ProfileUser | null> {
     return this.authService.currentUser$.pipe(
       switchMap((user) => {
@@ -39,7 +46,9 @@ export class UsersService {
   constructor(
     private firestore: Firestore,
     private authService: AuthenticationService
-  ) {}
+  ) { 
+    
+  }
 
   addUser(user: ProfileUser): Observable<any> {
     const ref = doc(this.firestore, 'users', user?.uid);
@@ -49,5 +58,14 @@ export class UsersService {
   updateUser(user: ProfileUser): Observable<any> {
     const ref = doc(this.firestore, 'users', user?.uid);
     return from(updateDoc(ref, { ...user }));
+  }
+
+  getUserById(userId: string): Observable<ProfileUser> {
+    // const ref = collection(this.firestore, 'users');
+    // const queryall = query(ref);
+    // return collectionData(queryall) as Observable<ProfileUser>;
+
+    const docRef = doc(this.firestore,'users', userId);
+    return docData(docRef) as Observable<ProfileUser>;
   }
 }
